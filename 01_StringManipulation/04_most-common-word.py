@@ -3,25 +3,24 @@
 import re
 from typing import List
 
-paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
-banned = ["hit"]
-
 def mostCommonWord(paragraph, banned):
     paragraph = re.sub(r'[.,"\'-?:!;]', '', paragraph)
     paragraph = paragraph.lower()
-    paragraph = list(paragraph)
-    print(paragraph)
+    paragraph = paragraph.split()
 
-    for i in range(len(paragraph)):
-        if paragraph[i] == banned[0]:
-            paragraph.pop(i)
-
-    print(paragraph)
+    new_para = []
+    for word in paragraph:
+        if word != banned[0]:
+            new_para.append(word)
 
     count = []
-    for word in paragraph:
-        count.append(paragraph.count(word))
+    for word in new_para:
+        count.append(new_para.count(word))
     
-    return paragraph[max(count)]
+    return new_para[max(count)]
+
+paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
+banned = ["hit"]
 
 print(mostCommonWord(paragraph, banned))
+# ball
