@@ -1,23 +1,22 @@
 # https://leetcode.com/problems/group-anagrams/description/
-
+ 
 import re
+import collections
 from typing import List
 
 strs = ["eat","tea","tan","ate","nat","bat"]
 # [["bat"],["nat","tan"],["ate","eat","tea"]]
 
 def groupAnagrams(strs):
-    word_list = []
+    sorted_collection = collections.defaultdict(list)
+    print(sorted_collection)
 
     for word in strs:
-        word_list.append(list(word))
-        print(word_list)
+        sorted_collection[''.join(sorted(word))].append(word)
+        print(sorted_collection)
 
-    groups = []
-    for word in word_list:
-        for j in range(len(word_list) - 1):
-            if (word_list[j] == word):
-                
-    return groups
+    print(sorted_collection)
 
-groupAnagrams(strs)
+    return sorted_collection.values
+
+print(groupAnagrams(strs))
