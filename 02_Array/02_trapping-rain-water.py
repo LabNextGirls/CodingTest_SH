@@ -3,9 +3,26 @@
 
 def trap(height):
     max_water = 0
+    temp_ptr = 0
+    max_ptr = height.index(max(height))
 
+    for i in range(len(height)-1):
+        # 상승단차 
+        if (height[i] < height[i+1]):
+            if (height[temp_ptr] < height[i+1]):
+                temp_ptr = i + 1
+            elif (height[temp_ptr] > height[i+1]):
+                max_water += (height[temp_ptr] - height[i+1])
+        
+        # 하강단차 
+        elif (height[i] > height[i+1]):
+            if (height[temp_ptr] >= height[i] and (temp_ptr != max_ptr)):
+                max_water += (height[temp_ptr] - height[i+1])
+            elif (height[temp_ptr] < height[i] and (i != max_ptr)):
+                temp_ptr = i
+                max_water += (height[i] - height[i+1])
 
     return max_water
 
-height = [0,1,0,2,1,0,1,3,2,1,2,1]
-print(trap(height))
+heights = [4,2,0,3,2,5]
+print(trap(heights))
