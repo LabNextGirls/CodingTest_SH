@@ -7,42 +7,59 @@ class ListNode(object):
         self.val = val
         self.next = next
 
-class Solution(object):
-    def reverseBetween(self, head, left, right):
-        """
-        :type head: ListNode
-        :type left: int
-        :type right: int
-        :rtype: ListNode
-        """
+# class Solution(object):
+#     def reverseBetween(self, head, left, right):
+#         """
+#         :type head: ListNode
+#         :type left: int
+#         :type right: int
+#         :rtype: ListNode
+#         """
 
-        start_node = ListNode()
-        start_node = head 
-        end_node = ListNode()
-        end_node = head
+#         dummy = ListNode()
+#         dummy.next = head
+#         start_node = dummy
+#         end_node = dummy
 
-        for i in range (left):
-            start_node = start_node.next
-            left = left - 1
+#         for i in range (left):
+#             start_node = start_node.next
 
-        for i in range (right):
-            end_node = end_node.next
-            right = right - 1
+#         for i in range (right):
+#             end_node = end_node.next
 
-        while (start_node != end_node):
-            temp = start_node
-            temp.next = start_node.next
+#         while start_node != end_node:
+#             temp = start_node
+#             temp.next = start_node.next
 
-            start_node = end_node
-            start_node. next = end_node.next 
+#             start_node = end_node
+#             start_node. next = end_node.next 
 
-            end_node = temp
-            end_node.next = temp.next 
+#             end_node = temp
+#             end_node.next = temp.next 
 
-            start_node = start_node.next
-            end_node = end_node.next
-        
-        return head
+#             start_node = start_node.next
+#             end_node.next = end_node
+
+#         return dummy.next
+
+class Solution:
+    def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
+        # 예외 처리
+        if not head or m == n:
+            return head
+
+        root = start = ListNode(None)
+        root.next = head
+        # start, end 지정
+        for _ in range(m - 1):
+            start = start.next
+        end = start.next
+
+        # 반복하면서 노드 차례대로 뒤집기
+        for _ in range(n - m):
+            tmp, start.next, end.next = start.next, end.next, end.next.next
+            start.next.next = tmp
+        return root.next
 
 def print_linked_list(node):
     while node:
